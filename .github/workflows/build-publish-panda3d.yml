@@ -49,5 +49,5 @@ jobs:
       run: |
         cd conda/recipes/
         PKG_DIR=../../../../rattler-bld
-        rattler-build build --recipe panda3d/recipe.yaml --variant-config ../configs/${{ matrix.target.platform }}.yaml --output-dir $PKG_DIR -c conda-forge
+        rattler-build build --recipe panda3d/recipe.yaml --variant-config ../configs/${{ matrix.target.platform }}.yaml ../configs/python-${{ matrix.target.python }}.yaml --output-dir $PKG_DIR -c conda-forge
         anaconda -t ${{ secrets.ANACONDA_TOKEN_VISP }} upload -u visp -l main $PKG_DIR/**/*.conda --force
