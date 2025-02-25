@@ -1,0 +1,53 @@
+name: build-publish-panda3d
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-publish-panda3d:
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [{platform: "linux-64", runner: "ubuntu-latest"},
+                  {platform: "linux-aarch64", runner: "ubuntu-22.04-arm"},
+                  {platform: "osx-64", runner: "macos-13"},
+                  {platform: "osx-arm64", runner: "macos-14"},
+                  {platform: "win-64", runner: "windows-latest"}]
+        python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+
+    name: "Build and publish panda3d - ${{ matrix.target.platform }} (py${{ matrix.target.python }} ) conda packages on ${{ matrix.target.runner }}"
+    runs-on: ${{ matrix.target.runner }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Install miniconda
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        activate-environment: sofa-conda-ci
+        auto-update-conda: true
+        miniforge-version: latest
+
+    - name: Install conda environment
+      shell: bash -l {0}
+      run: |
+        conda install anaconda-client rattler-build -c conda-forge
+        conda config --set anaconda_upload no
+
+    - name: Show conda config
+      shell: bash -l {0}
+      run: |
+        conda info
+        conda list
+        conda config --show-sources
+        conda config --show
+        printenv | sort
+
+    - name: Build & publish panda3d conda package
+      shell: bash -l {0}
+      run: |
+        cd conda/recipes/
+        PKG_DIR=../../../../rattler-bld
+        rattler-build build --recipe panda3d/recipe.yaml --variant-config ../configs/${{ matrix.target.platform }}.yaml --output-dir $PKG_DIR -c conda-forge
+        anaconda -t ${{ secrets.ANACONDA_TOKEN_VISP }} upload -u visp -l main $PKG_DIR/**/*.conda --force
