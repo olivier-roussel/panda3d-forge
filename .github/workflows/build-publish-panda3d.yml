@@ -9,7 +9,6 @@ jobs:
       fail-fast: false
       matrix:
         target: [{platform: "linux-64", runner: "ubuntu-latest"},
-                  {platform: "linux-aarch64", runner: "ubuntu-22.04-arm"},
                   {platform: "osx-64", runner: "macos-13"},
                   {platform: "osx-arm64", runner: "macos-14"},
                   {platform: "win-64", runner: "windows-latest"}]
@@ -43,6 +42,22 @@ jobs:
         conda config --show-sources
         conda config --show
         printenv | sort
+
+    - name: Install MacOS SDK v10.13 / osx-x64
+      if: (contains(matrix.target.platform, 'osx-64')
+      run: |
+        curl -L --output MacOSX10.13.sdk.tar.xz https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.13.sdk.tar.xz
+        tar -xf MacOSX10.13.sdk.tar.xz -C $CONDA_PREFIX/SDKs
+        echo "CONDA_BUILD_SYSROOT=$CONDA_PREFIX/SDKs/MacOSX10.13.sdk" >> $GITHUB_ENV
+        echo "OSX_SDK_DIR=$CONDA_PREFIX/SDKs/MacOSX10.13.sdk" >> $GITHUB_ENV
+
+    - name: Install MacOS SDK v11.0 / osx-arm64
+      if: (contains(matrix.target.platform, 'osx-arm64')
+      run: |
+        curl -L --output MacOSX11.0.sdk.tar.xz https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX11.0.sdk.tar.xz
+        tar -xf MacOSX11.0.sdk.tar.xz -C $CONDA_PREFIX/SDKs
+        echo "CONDA_BUILD_SYSROOT=$CONDA_PREFIX/SDKs/MacOSX11.0.sdk" >> $GITHUB_ENV
+        echo "OSX_SDK_DIR=$CONDA_PREFIX/SDKs/MacOSX11.0.sdk" >> $GITHUB_ENV
 
     - name: Build & publish panda3d conda package
       shell: bash -l {0}

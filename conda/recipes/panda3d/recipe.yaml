@@ -12,9 +12,13 @@ source:
     sha256: dfe93123a73570377ef77c2a1b6ecff46c9b507750d8bedde07f9244cc1e741e
 
     patches:
+    - if: osx
+      then:
+        - patches/0001-add-possibility-to-use-env-var-to-set-osx-SDK-dir.patch
+
     - if: win or osx
       then:
-       - patches/fix-makepanda-to-use-custom-3rd-party-libs-for-conda.patch
+        - patches/fix-makepanda-to-use-custom-3rd-party-libs-for-conda.patch
 
     - if: win
       then:
