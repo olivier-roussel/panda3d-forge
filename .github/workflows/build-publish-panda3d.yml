@@ -24,7 +24,7 @@ jobs:
     - name: Install miniconda
       uses: conda-incubator/setup-miniconda@v3
       with:
-        activate-environment: sofa-conda-ci
+        activate-environment: conda-ci
         auto-update-conda: true
         miniforge-version: latest
 
@@ -68,5 +68,5 @@ jobs:
       run: |
         cd conda/recipes/
         PKG_DIR=../../../../rattler-bld
-        rattler-build build --recipe panda3d/recipe.yaml --variant-config ../configs/${{ matrix.target.platform }}.yaml --variant-config ../configs/python-${{ matrix.python }}.yaml --output-dir $PKG_DIR -c conda-forge
+        rattler-build build --recipe panda3d/recipe.yaml --variant-config ../configs/${{ matrix.target.platform }}-python${{ matrix.python }}.yaml --output-dir $PKG_DIR -c conda-forge
         anaconda -t ${{ secrets.ANACONDA_TOKEN_P3D_FORGE }} upload -u panda3d-forge -l main $PKG_DIR/**/*.conda --force
