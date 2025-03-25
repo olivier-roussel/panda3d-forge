@@ -26,7 +26,7 @@ source:
         - patches/0002-use-non-static-mimalloc.patch
 
     # fix the ressource model directory to installed on in <prefix>/share/panda3d
-    - fix-model-path-in-config.prc-template.patch
+    - patches/fix-model-path-in-config.prc-template.patch
 
 build:
   number: ${{ build_num }}
