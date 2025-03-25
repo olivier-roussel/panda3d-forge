@@ -91,6 +91,7 @@ requirements:
     - tifffile
     - zlib
     - wxpython
+    - libprotobuf
     # Packages to specify to panda3d not on win
     - if: unix
       then:
