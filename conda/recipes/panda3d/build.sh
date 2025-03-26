@@ -68,8 +68,8 @@ $PYTHON makepanda/makepanda.py \
 cd build
 
 # Install site-packages
-cp -r panda3d/ $SP_DIR
-cp -r direct/ $SP_DIR
+cp -r panda3d $SP_DIR
+cp -r direct $SP_DIR
 
 # Fix install-name on darwin
 if [[ $target_platform == "osx-*" ]]; then
