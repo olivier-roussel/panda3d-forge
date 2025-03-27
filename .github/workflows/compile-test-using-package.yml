@@ -64,6 +64,7 @@ jobs:
     - name: Install panda3d
       shell: bash -l {0}
       run: |
+        conda install eigen -c conda-forge
         conda install panda3d -c panda3d-forge
 
     - name: Show conda config
@@ -85,6 +86,7 @@ jobs:
         cmake .. -GNinja
 
     - name: Cnfigure test [Conda/Windows]
+      if: contains(matrix.os, 'windows-')
       shell: cmd /C CALL {0}
       run: |
         cd conda/recipes/panda3d/test/
