@@ -1,0 +1,110 @@
+name: compile-test-using-package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  compile-test-using-package:
+    strategy:
+      fail-fast: false
+      matrix:
+        name: [ubuntu-latest, macos-latest, windows-latest-clang-cl, windows-latest, macos-13, macos-14]
+
+        include:
+          - name: ubuntu-latest
+            os: ubuntu-latest
+          - name: macos-latest
+            os: macos-latest
+          - name: macos-14
+            os: macos-14
+          - name: windows-latest-clang-cl
+            os: windows-latest
+            compiler: clang-cl
+          - name: windows-latest
+            os: windows-latest
+            compiler: cl
+          - name: macos-13
+            os: macos-13
+          - name: macos-14
+            os: macos-14
+          - name: macos-latest
+            os: macos-latest
+
+    name: "Build linking test ${{ matrix.name }} on ${{ matrix.os }}"
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Install miniconda
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        activate-environment: conda-ci
+        auto-update-conda: true
+        miniforge-version: latest
+
+    - name: Install compile tools
+      shell: bash -l {0}
+      run: |
+        conda install cmake cxx-compiler ninja pkg-config -c conda-forge
+
+    - name: Install compiler [Conda/Windows-latest]
+      if: contains(matrix.os, 'windows-latest')
+      shell: bash -l {0}
+      run: |
+        conda install vs2022_win-64 -c conda-forge
+
+    - name: Install compiler [Conda/Windows-latest-clang-cl]
+      if: contains(matrix.os, 'windows-latest-clang-cl')
+      shell: bash -l {0}
+      run: |
+        conda install clang llvm-openmp -c conda-forge
+
+    - name: Install panda3d
+      shell: bash -l {0}
+      run: |
+        conda install panda3d -c panda3d-forge
+
+    - name: Show conda config
+      shell: bash -l {0}
+      run: |
+        conda info
+        conda list
+        conda config --show-sources
+        conda config --show
+        printenv | sort
+
+    - name: Cnfigure test [Conda/Linux&macOS]
+      if: contains(matrix.os, 'macos-') || contains(matrix.os, 'ubuntu')
+      shell: bash -l {0}
+      run: |
+        cd conda/recipes/panda3d/test/
+        mkdir build
+        cd build
+        cmake .. -GNinja
+
+    - name: Cnfigure test [Conda/Windows]
+      shell: cmd /C CALL {0}
+      run: |
+        cd conda/recipes/panda3d/test/
+        mkdir build
+        cd build
+        set CC=${{ matrix.compiler }}
+        set CXX=${{ matrix.compiler }}
+        cmake .. -GNinja
+
+    - name: Build [Conda/Linux&macOS]
+      if: contains(matrix.os, 'macos-') || contains(matrix.os, 'ubuntu')
+      shell: bash -l {0}
+      run: |
+        cd conda/recipes/panda3d/test/build
+        cmake --build .
+
+    - name: Build [Conda/Windows]
+      if: contains(matrix.os, 'windows-')
+      # It's better to use CMD to have all VS variables setup
+      shell: cmd /C CALL {0}
+      run: |
+        cd conda/recipes/panda3d/test/build
+        cmake --build .
