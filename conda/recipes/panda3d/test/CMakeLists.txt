@@ -9,7 +9,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 find_package(Panda3d REQUIRED)
 find_package(Eigen3 REQUIRED CONFIG)
 
-add_executable(TestExe test.cpp)
+add_executable(TestExe test2.cpp)
 target_link_libraries(TestExe PUBLIC 
   Eigen3::Eigen
   panda3d::panda
