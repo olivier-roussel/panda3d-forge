@@ -50,9 +50,15 @@ build:
 
 requirements:
   build:
-    - ${{ compiler("c") }}
     - ${{ stdlib("c") }}
-    - ${{ compiler("cxx") }}
+    - if: win
+      then:
+        # vs2019_win-64=*=*_25 is broken, see
+        # https://github.com/conda-forge/vc-feedstock/issues/94
+        - vs2019_win-64 = 19.29.30139 [build=*_24]
+      else:
+        - ${{ compiler("c") }}
+        - ${{ compiler("cxx") }}
     - if: unix
       then:
         - make
@@ -181,7 +187,14 @@ tests:
     requirements:
       run:
         - ${{ stdlib('c') }}
-        - ${{ compiler('cxx') }}
+        - if: win
+          then:
+            # vs2019_win-64=*=*_25 is broken, see
+            # https://github.com/conda-forge/vc-feedstock/issues/94
+            - vs2019_win-64 = 19.29.30139 [build=*_24]
+          else:
+            - ${{ compiler("c") }}
+            - ${{ compiler("cxx") }}
         - cmake
         - ninja
         - eigen
