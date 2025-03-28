@@ -28,8 +28,11 @@ source:
     # fix the ressource model directory to installed on in <prefix>/share/panda3d
     - patches/fix-model-path-in-config.prc-template.patch
 
+    - patches/0001-fix-dllimport-for-clang-cl.patch
+
 build:
   number: ${{ build_num }}
+  string: fix_clang_cl_h${{ hash }}_${{ build_num }}
   dynamic_linking:
     missing_dso_allowlist:
       - if: osx

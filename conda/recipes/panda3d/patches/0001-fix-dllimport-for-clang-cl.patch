@@ -1,0 +1,25 @@
+From 2ea2939b184e0ec67025aa052083bba71745ad10 Mon Sep 17 00:00:00 2001
+From: Olivier Roussel <olivier.roussel@inria.fr>
+Date: Thu, 27 Mar 2025 17:13:09 +0100
+Subject: [PATCH] fix dllimport for clang-cl
+
+---
+ dtool/src/prc/configFlags.cxx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dtool/src/prc/configFlags.cxx b/dtool/src/prc/configFlags.cxx
+index 4613dc4615..d274406d9b 100644
+--- a/dtool/src/prc/configFlags.cxx
++++ b/dtool/src/prc/configFlags.cxx
+@@ -13,7 +13,7 @@
+ 
+ #include "configFlags.h"
+ 
+-TVOLATILE AtomicAdjust::Integer ConfigFlags::_global_modified;
++EXPCL_DTOOL_PRC TVOLATILE AtomicAdjust::Integer ConfigFlags::_global_modified;
+ 
+ /**
+  *
+-- 
+2.34.1
+
