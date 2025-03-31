@@ -94,7 +94,7 @@ jobs:
         cd build
         set CC=${{ matrix.compiler }}
         set CXX=${{ matrix.compiler }}
-        cmake .. -GNinja -DCMAKE_VERBOSE_MAKEFILE=ON
+        cmake .. -GNinja -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_SHARED_LINKER_FLAGS_RELEASE="/DEBUG /INCREMENTAL:NO"
 
     - name: Build [Conda/Linux&macOS]
       if: contains(matrix.os, 'macos-') || contains(matrix.os, 'ubuntu')
