@@ -21,6 +21,8 @@ target_link_libraries(TestLib PUBLIC
   panda3d::p3dtool
   panda3d::p3framework)
 
+target_link_options(TestLib PRIVATE "/DEBUG /INCREMENTAL:NO")
+
 # add_executable(TestExe test.cpp)
 # target_link_libraries(TestExe PUBLIC 
 #   Eigen3::Eigen
