@@ -83,7 +83,7 @@ jobs:
         cd conda/recipes/panda3d/test/
         mkdir build
         cd build
-        cmake .. -GNinja
+        cmake .. -GNinja -DCMAKE_VERBOSE_MAKEFILE=ON
 
     - name: Cnfigure test [Conda/Windows]
       if: contains(matrix.os, 'windows-')
@@ -94,7 +94,7 @@ jobs:
         cd build
         set CC=${{ matrix.compiler }}
         set CXX=${{ matrix.compiler }}
-        cmake .. -GNinja
+        cmake .. -GNinja -DCMAKE_VERBOSE_MAKEFILE=ON
 
     - name: Build [Conda/Linux&macOS]
       if: contains(matrix.os, 'macos-') || contains(matrix.os, 'ubuntu')
