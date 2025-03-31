@@ -1,5 +1,7 @@
 #include "testlib.h"
 
+#include <panda3d/configVariableBool.h>
+
 #include <panda3d/windowFramework.h>
 #include <panda3d/graphicsOutput.h>
 #include <panda3d/graphicsEngine.h>
@@ -28,5 +30,8 @@ int doStuff() {
 
   DisplayRegion *region;
   region->set_clear_color(LColor(0.f));
+
+  const auto dummy = ConfigVariableBool("dummy");
+  return 0;
 }
  
