@@ -12,8 +12,21 @@ find_package(Eigen3 REQUIRED CONFIG)
 find_package(OpenMP REQUIRED)
 
 add_library(TestLib SHARED testlib.cpp testlib.h)
+
+set(opt_libs "")
+foreach(lib_ ${OpenMP_CXX_LIB_NAMES})
+    if("x${lib_}" STREQUAL "xpthread")
+      if(CMAKE_THREAD_LIBS_INIT)
+        list(APPEND opt_libs "${CMAKE_THREAD_LIBS_INIT}")
+      endif()
+    else()
+      list(APPEND opt_libs ${OpenMP_${lib_}_LIBRARY})
+    endif()
+  endforeach()
+
 target_link_libraries(TestLib PUBLIC 
-  OpenMP::OpenMP_CXX
+  # OpenMP::OpenMP_CXX
+  ${opt_libs}
   Eigen3::Eigen
   panda3d::panda
   panda3d::pandaexpress
@@ -21,7 +34,8 @@ target_link_libraries(TestLib PUBLIC
   panda3d::p3dtool
   panda3d::p3framework)
 
-target_link_options(TestLib PRIVATE "/DEBUG /INCREMENTAL:NO")
+string(REPLACE "/INCREMENTAL " "/INCREMENTAL:NO " CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG}")
+string(REPLACE "/INCREMENTAL " "/INCREMENTAL:NO " CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE}")
 
 # add_executable(TestExe test.cpp)
 # target_link_libraries(TestExe PUBLIC 
