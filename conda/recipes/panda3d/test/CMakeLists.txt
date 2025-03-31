@@ -9,11 +9,20 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 find_package(Panda3d REQUIRED)
 find_package(Eigen3 REQUIRED CONFIG)
 
-add_executable(TestExe test.cpp)
-target_link_libraries(TestExe PUBLIC 
+add_library(TestLib SHARED testlib.cpp testlib.h)
+target_link_libraries(TestLib PUBLIC 
   Eigen3::Eigen
   panda3d::panda
   panda3d::pandaexpress
   panda3d::p3dtoolconfig
   panda3d::p3dtool
   panda3d::p3framework)
+
+# add_executable(TestExe test.cpp)
+# target_link_libraries(TestExe PUBLIC 
+#   Eigen3::Eigen
+#   panda3d::panda
+#   panda3d::pandaexpress
+#   panda3d::p3dtoolconfig
+#   panda3d::p3dtool
+#   panda3d::p3framework)
