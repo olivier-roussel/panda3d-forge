@@ -53,7 +53,7 @@ jobs:
       if: contains(matrix.os, 'windows-latest')
       shell: bash -l {0}
       run: |
-        conda install vs2022_win-64 -c conda-forge
+        conda install vs2019_win-64 -c conda-forge
 
     - name: Install compiler [Conda/Windows-latest-clang-cl]
       if: contains(matrix.os, 'windows-latest-clang-cl')
