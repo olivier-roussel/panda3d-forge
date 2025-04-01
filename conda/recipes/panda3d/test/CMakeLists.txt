@@ -32,7 +32,7 @@ target_link_libraries(TestLib PUBLIC
   ${opt_libs}
   Eigen3::Eigen
   panda3d::panda
-  panda3d::pandadirect
+  panda3d::p3direct
   panda3d::pandaexpress
   panda3d::p3dtoolconfig
   panda3d::p3dtool
