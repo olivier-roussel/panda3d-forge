@@ -8,27 +8,34 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        name: [ubuntu-latest, macos-latest, windows-latest-clang-cl, windows-latest, macos-13, macos-14]
+        name: [windows-2019-clang-cl, windows-2019, windows-latest-clang-cl, windows-latest]
+        # name: [ubuntu-latest, macos-latest, windows-latest-clang-cl, windows-latest, macos-13, macos-14]
 
         include:
-          - name: ubuntu-latest
-            os: ubuntu-latest
-          - name: macos-latest
-            os: macos-latest
-          - name: macos-14
-            os: macos-14
+          # - name: ubuntu-latest
+          #   os: ubuntu-latest
+          # - name: macos-latest
+          #   os: macos-latest
+          # - name: macos-14
+          #   os: macos-14
+          - name: windows-2019-clang-cl
+            os: windows-2019
+            compiler: clang-cl
+          - name: windows-2019
+            os: windows-2019
+            compiler: cl          
           - name: windows-latest-clang-cl
             os: windows-latest
             compiler: clang-cl
           - name: windows-latest
             os: windows-latest
             compiler: cl
-          - name: macos-13
-            os: macos-13
-          - name: macos-14
-            os: macos-14
-          - name: macos-latest
-            os: macos-latest
+          # - name: macos-13
+          #   os: macos-13
+          # - name: macos-14
+          #   os: macos-14
+          # - name: macos-latest
+          #   os: macos-latest
 
     name: "Build linking test ${{ matrix.name }} on ${{ matrix.os }}"
     runs-on: ${{ matrix.os }}
@@ -44,27 +51,38 @@ jobs:
         auto-update-conda: true
         miniforge-version: latest
 
-    - name: Install compiler & compile tools [Conda/Linux&macOS]
-      if: contains(matrix.os, 'macos-') || contains(matrix.os, 'ubuntu')
-      run: |
-        conda install cmake cxx-compiler ninja pkg-config -c conda-forge
+    # - name: Install conda deps [Conda/Linux&macOS]
+    #   if: contains(matrix.os, 'macos-') || contains(matrix.os, 'ubuntu')
+    #   run: |
+    #     conda install cmake cxx-compiler ninja pkg-config eigen libopencv=4.11.0 python=3.13 -c conda-forge
 
-    - name: Install compiler [Conda/Windows-latest]
+    - name: Install conda deps [Conda/Windows-2019]
       if: contains(matrix.name, 'windows-latest')
       shell: bash -l {0}
       run: |
-        conda install vs2019_win-64 cmake ninja pkg-config -c conda-forge
+        conda install vs2019_win-64 cmake ninja pkg-config eigen libopencv=4.11.0 python=3.13 -c conda-forge
 
-    - name: Install compiler [Conda/Windows-latest-clang-cl]
-      if: contains(matrix.name, 'windows-latest-clang-cl')
+    - name: Install conda deps [Conda/Windows-2019-clang-cl]
+      if: contains(matrix.name, 'windows-2019-clang-cl')
       shell: bash -l {0}
       run: |
-        conda install clang llvm-openmp cmake ninja pkg-config -c conda-forge
+        conda install clang clangxx vs2019_win-64 cmake ninja pkg-config eigen libopencv=4.11.0 python=3.13 -c conda-forge
+
+    - name: Install conda deps [Conda/Windows-2022]
+      if: contains(matrix.name, 'windows-latest')
+      shell: bash -l {0}
+      run: |
+        conda install vs2022_win-64 cmake ninja pkg-config eigen libopencv=4.11.0 python=3.13 -c conda-forge
+
+    - name: Install conda deps [Conda/Windows-2022-clang-cl]
+      if: contains(matrix.name, 'windows-2022-clang-cl')
+      shell: bash -l {0}
+      run: |
+        conda install clang clangxx vs2022_win-64 cmake ninja pkg-config eigen libopencv=4.11.0 python=3.13 -c conda-forge
 
     - name: Install panda3d & dependencies
       shell: bash -l {0}
       run: |
-        conda install eigen libopencv=4.11.0 -c conda-forge
         conda install panda3d -c panda3d-forge
 
     - name: Show conda config
