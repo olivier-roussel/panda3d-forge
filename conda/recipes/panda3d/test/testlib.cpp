@@ -40,7 +40,7 @@ int doStuff() {
   image = cv::imread("foo.png", cv::IMREAD_COLOR );
 
   cv::namedWindow("Display Image", cv::WINDOW_AUTOSIZE );
-  cv::imshow("Display Image", image);
+  // cv::imshow("Display Image", image);
 
   cv::waitKey(0);
   
