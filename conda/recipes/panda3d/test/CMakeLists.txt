@@ -49,10 +49,10 @@ target_link_libraries(TestLib PUBLIC
   panda3d::p3dtool
   panda3d::p3framework)
 
-message("== before CMAKE_SHARED_LINKER_FLAGS = ${CMAKE_SHARED_LINKER_FLAGS}")
-string(REPLACE "/INCREMENTAL " "/INCREMENTAL:NO " CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}")
-message("== after CMAKE_SHARED_LINKER_FLAGS = ${CMAKE_SHARED_LINKER_FLAGS}")
-message("== OpenMP_CXX_FLAGS = ${OpenMP_CXX_FLAGS}")
+# message("== before CMAKE_SHARED_LINKER_FLAGS = ${CMAKE_SHARED_LINKER_FLAGS}")
+# string(REPLACE "/INCREMENTAL " "/INCREMENTAL:NO " CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}")
+# message("== after CMAKE_SHARED_LINKER_FLAGS = ${CMAKE_SHARED_LINKER_FLAGS}")
+# message("== OpenMP_CXX_FLAGS = ${OpenMP_CXX_FLAGS}")
 # add_executable(TestExe test.cpp)
 # target_link_libraries(TestExe PUBLIC 
 #   Eigen3::Eigen
