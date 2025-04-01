@@ -12,6 +12,8 @@
 #include <panda3d/pointerTo.h>
 #include <panda3d/camera.h>
 
+#include <opencv2/opencv.hpp>
+ 
 int doStuff() {
   FrameBufferProperties fbp;
   fbp.set_rgb_color(true);
@@ -32,6 +34,16 @@ int doStuff() {
   region->set_clear_color(LColor(0.f));
 
   const auto dummy = ConfigVariableBool("dummy");
+
+  // call some opencv functions
+  cv::Mat image;
+  image = cv::imread("foo.png", cv::IMREAD_COLOR );
+
+  cv::namedWindow("Display Image", cv::WINDOW_AUTOSIZE );
+  cv::imshow("Display Image", image);
+
+  cv::waitKey(0);
+  
   return 0;
 }
  

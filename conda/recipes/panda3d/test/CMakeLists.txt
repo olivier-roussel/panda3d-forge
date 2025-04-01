@@ -26,6 +26,10 @@ foreach(lib_ ${OpenMP_CXX_LIB_NAMES})
     endif()
   endforeach()
   
+  message("== OpenCV_FOUND = ${OpenCV_FOUND}")
+  message("== OpenCV_INCLUDE_DIRS = ${OpenCV_INCLUDE_DIRS}")
+  message("== OpenCV_LIBRARIES = ${OpenCV_LIBRARIES}")
+
 target_link_libraries(TestLib PUBLIC 
   # OpenMP::OpenMP_CXX
   ${OpenCV_LIBRARIES}
