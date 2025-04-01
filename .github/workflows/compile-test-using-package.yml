@@ -69,7 +69,7 @@ jobs:
         conda install clang clangxx vs2019_win-64 cmake ninja pkg-config eigen libopencv=4.11.0 python=3.13 -c conda-forge
 
     - name: Install conda deps [Conda/Windows-2022]
-      if: contains(matrix.name, 'windows-latest')
+      if: contains(matrix.name, 'windows-2022')
       shell: bash -l {0}
       run: |
         conda install vs2022_win-64 cmake ninja pkg-config eigen libopencv=4.11.0 python=3.13 -c conda-forge
