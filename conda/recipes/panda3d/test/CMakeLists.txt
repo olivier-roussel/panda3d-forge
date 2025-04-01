@@ -12,8 +12,7 @@ find_package(Eigen3 REQUIRED CONFIG)
 find_package(OpenMP REQUIRED)
 
 # find_package(MyOpenCV REQUIRED)
-find_package(OpenCV REQUIRED)
-
+find_package(OpenCV REQUIRED core imgproc highgui calib3d features2d)
 add_library(TestLib SHARED testlib.cpp testlib.h)
 
 set(opt_libs "")
@@ -36,7 +35,11 @@ target_include_directories(TestLib PRIVATE ${OpenCV_INCLUDE_DIRS})
 
 target_link_libraries(TestLib PUBLIC 
   # OpenMP::OpenMP_CXX
-  ${OpenCV_LIBRARIES}
+  opencv_core
+  opencv_imgproc
+  opencv_highgui
+  opencv_calib3d
+  opencv_features2d
   ${opt_libs}
   Eigen3::Eigen
   panda3d::panda
