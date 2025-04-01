@@ -11,7 +11,8 @@ find_package(Eigen3 REQUIRED CONFIG)
 
 find_package(OpenMP REQUIRED)
 
-find_package(MyOpenCV REQUIRED)
+# find_package(MyOpenCV REQUIRED)
+find_package(OpenCV REQUIRED)
 
 add_library(TestLib SHARED testlib.cpp testlib.h)
 
@@ -29,6 +30,8 @@ foreach(lib_ ${OpenMP_CXX_LIB_NAMES})
   message("== OpenCV_FOUND = ${OpenCV_FOUND}")
   message("== OpenCV_INCLUDE_DIRS = ${OpenCV_INCLUDE_DIRS}")
   message("== OpenCV_LIBRARIES = ${OpenCV_LIBRARIES}")
+
+target_include_directories(TestLib PRIVATE ${OpenCV_INCLUDE_DIRS})
 
 target_link_libraries(TestLib PUBLIC 
   # OpenMP::OpenMP_CXX
