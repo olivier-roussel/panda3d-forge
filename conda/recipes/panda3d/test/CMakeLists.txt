@@ -9,7 +9,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 find_package(Panda3d REQUIRED)
 find_package(Eigen3 REQUIRED CONFIG)
 
-find_package(OpenMP REQUIRED)
+# find_package(OpenMP REQUIRED)
 
 # find_package(MyOpenCV REQUIRED)
 find_package(OpenCV REQUIRED core imgproc highgui calib3d features2d)
@@ -30,7 +30,9 @@ foreach(lib_ ${OpenMP_CXX_LIB_NAMES})
   message("== OpenCV_INCLUDE_DIRS = ${OpenCV_INCLUDE_DIRS}")
   message("== OpenCV_LIBRARIES = ${OpenCV_LIBRARIES}")
   message("== OpenCV_LIBS = ${OpenCV_LIBS}")
-  
+
+set(OpenMP_CondaLib "C:\\Users\\runneradmin\\miniconda3\\envs\\conda-ci\\Library\\lib\\libomp.lib")
+
 target_include_directories(TestLib PRIVATE ${OpenCV_INCLUDE_DIRS})
 
 target_link_libraries(TestLib PUBLIC 
@@ -40,7 +42,7 @@ target_link_libraries(TestLib PUBLIC
   opencv_highgui
   opencv_calib3d
   opencv_features2d
-  ${opt_libs}
+  ${OpenMP_CondaLib}
   Eigen3::Eigen
   panda3d::panda
   panda3d::p3direct
@@ -49,6 +51,7 @@ target_link_libraries(TestLib PUBLIC
   panda3d::p3dtool
   panda3d::p3framework)
 
+set(CMAKE_SHARED_LINKER_FLAGS "/INCREMENTAL:NO /DEBUG /NODEFAULTLIB:libc")
 # message("== before CMAKE_SHARED_LINKER_FLAGS = ${CMAKE_SHARED_LINKER_FLAGS}")
 # string(REPLACE "/INCREMENTAL " "/INCREMENTAL:NO " CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}")
 # message("== after CMAKE_SHARED_LINKER_FLAGS = ${CMAKE_SHARED_LINKER_FLAGS}")
