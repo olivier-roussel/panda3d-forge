@@ -38,9 +38,12 @@ foreach(lib_ ${OpenMP_CXX_LIB_NAMES})
 
 # target_include_directories(TestLib PRIVATE ${OpenCV_INCLUDE_DIRS})
 
+set(ExtraWinLibs "winmm.lib  rpcrt4.lib  ws2_32.lib")
+
 target_link_libraries(TestLib PUBLIC 
   # OpenMP::OpenMP_CXX
   ${opt_libs}
+  ${ExtraWinLibs}
   opencv_core
   opencv_imgproc
   opencv_highgui
