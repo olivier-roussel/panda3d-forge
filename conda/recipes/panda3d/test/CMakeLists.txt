@@ -9,7 +9,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 find_package(Panda3d REQUIRED)
 find_package(Eigen3 REQUIRED CONFIG)
 
-find_package(OpenMP REQUIRED)
+find_package(OpenMP REQUIRED CONFIG)
 
 add_library(TestLib SHARED testlib.cpp testlib.h)
 
@@ -29,6 +29,7 @@ target_link_libraries(TestLib PUBLIC
   ${opt_libs}
   Eigen3::Eigen
   panda3d::panda
+  panda3d::pandadirect
   panda3d::pandaexpress
   panda3d::p3dtoolconfig
   panda3d::p3dtool
