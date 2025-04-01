@@ -1,0 +1,81 @@
+From 7364c935735d38bb74d50bbf24de409968fe2360 Mon Sep 17 00:00:00 2001
+From: Olivier Roussel <olivier.roussel@inria.fr>
+Date: Tue, 1 Apr 2025 16:42:07 +0200
+Subject: [PATCH] disable ConfigFlags::_global_modified
+
+---
+ dtool/src/prc/configFlags.I   | 11 +++++++----
+ dtool/src/prc/configFlags.cxx |  2 +-
+ dtool/src/prc/configFlags.h   |  2 +-
+ 3 files changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/dtool/src/prc/configFlags.I b/dtool/src/prc/configFlags.I
+index 6f35c4d814..e70e4a185b 100644
+--- a/dtool/src/prc/configFlags.I
++++ b/dtool/src/prc/configFlags.I
+@@ -18,7 +18,8 @@
+  */
+ ALWAYS_INLINE bool ConfigFlags::
+ is_cache_valid(AtomicAdjust::Integer local_modified) {
+-  return local_modified == _global_modified;
++  // return local_modified == _global_modified;
++  return false;
+ }
+ 
+ /**
+@@ -27,7 +28,7 @@ is_cache_valid(AtomicAdjust::Integer local_modified) {
+  */
+ ALWAYS_INLINE void ConfigFlags::
+ mark_cache_valid(AtomicAdjust::Integer &local_modified) {
+-  local_modified = _global_modified;
++  // local_modified = _global_modified;
+ }
+ 
+ /**
+@@ -37,7 +38,8 @@ mark_cache_valid(AtomicAdjust::Integer &local_modified) {
+  */
+ INLINE AtomicAdjust::Integer ConfigFlags::
+ initial_invalid_cache() {
+-  return _global_modified - 1;
++  // return _global_modified - 1;
++  return 0;
+ }
+ 
+ /**
+@@ -46,5 +48,6 @@ initial_invalid_cache() {
+  */
+ INLINE void ConfigFlags::
+ invalidate_cache() {
+-  AtomicAdjust::inc(_global_modified);
++  // no op
++  // AtomicAdjust::inc(_global_modified);
+ }
+diff --git a/dtool/src/prc/configFlags.cxx b/dtool/src/prc/configFlags.cxx
+index d274406d9b..f800a82532 100644
+--- a/dtool/src/prc/configFlags.cxx
++++ b/dtool/src/prc/configFlags.cxx
+@@ -13,7 +13,7 @@
+ 
+ #include "configFlags.h"
+ 
+-EXPCL_DTOOL_PRC TVOLATILE AtomicAdjust::Integer ConfigFlags::_global_modified;
++// EXPCL_DTOOL_PRC TVOLATILE AtomicAdjust::Integer ConfigFlags::_global_modified;
+ 
+ /**
+  *
+diff --git a/dtool/src/prc/configFlags.h b/dtool/src/prc/configFlags.h
+index f4b95757d6..17ef8ea727 100644
+--- a/dtool/src/prc/configFlags.h
++++ b/dtool/src/prc/configFlags.h
+@@ -64,7 +64,7 @@ protected:
+   INLINE static void invalidate_cache();
+ 
+ private:
+-  static TVOLATILE AtomicAdjust::Integer _global_modified;
++  // static TVOLATILE AtomicAdjust::Integer _global_modified;
+ };
+ 
+ std::ostream &operator << (std::ostream &out, ConfigFlags::ValueType type);
+-- 
+2.34.1
+
