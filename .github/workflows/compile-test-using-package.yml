@@ -64,7 +64,7 @@ jobs:
     - name: Install panda3d
       shell: bash -l {0}
       run: |
-        conda install eigen -c conda-forge
+        conda install eigen libopencv=4.11.0 -c conda-forge
         conda install panda3d -c panda3d-forge
 
     - name: Show conda config
@@ -94,7 +94,7 @@ jobs:
         cd build
         set CC=${{ matrix.compiler }}
         set CXX=${{ matrix.compiler }}
-        cmake .. -GNinja -DCMAKE_VERBOSE_MAKEFILE=ON
+        cmake .. -GNinja -DCMAKE_VERBOSE_MAKEFILE=ON -DOPENMP_ROOT=%CONDA_PREFIX%/Library
 
     - name: Build [Conda/Linux&macOS]
       if: contains(matrix.os, 'macos-') || contains(matrix.os, 'ubuntu')
