@@ -50,13 +50,13 @@ jobs:
         conda install cmake cxx-compiler ninja pkg-config -c conda-forge
 
     - name: Install compiler [Conda/Windows-latest]
-      if: contains(matrix.os, 'windows-latest')
+      if: contains(matrix.name, 'windows-latest')
       shell: bash -l {0}
       run: |
         conda install vs2019_win-64 cmake ninja pkg-config -c conda-forge
 
     - name: Install compiler [Conda/Windows-latest-clang-cl]
-      if: contains(matrix.os, 'windows-latest-clang-cl')
+      if: contains(matrix.name, 'windows-latest-clang-cl')
       shell: bash -l {0}
       run: |
         conda install clang llvm-openmp cmake ninja pkg-config -c conda-forge
