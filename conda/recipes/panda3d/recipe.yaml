@@ -1,7 +1,7 @@
 context:
   name: panda3d
   version: 1.10.15
-  build_num: 100
+  build_num: 101
 
 package:
   name: ${{ name }}
@@ -30,7 +30,6 @@ source:
 
     # WIP: trying to fix clang cl link error
     - patches/0001-fix-dllimport-for-clang-cl.patch
-    - patches/0001-disable-ConfigFlags-_global_modified.patch
 
 build:
   number: ${{ build_num }}
