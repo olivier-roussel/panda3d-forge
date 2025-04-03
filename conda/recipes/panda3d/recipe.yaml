@@ -1,7 +1,7 @@
 context:
   name: panda3d
   version: 1.10.15
-  build_num: 101
+  build_num: 102
 
 package:
   name: ${{ name }}
@@ -28,8 +28,8 @@ source:
     # fix the ressource model directory to installed on in <prefix>/share/panda3d
     - patches/fix-model-path-in-config.prc-template.patch
 
-    # WIP: trying to fix clang cl link error
-    - patches/0001-fix-dllimport-for-clang-cl.patch
+    # force symbol exports for static private variables on Clang-cl compiler
+    - patches/0001-force-symbol-exports-for-static-private-variable-on-.patch
 
 build:
   number: ${{ build_num }}
