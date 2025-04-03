@@ -1,20 +1,21 @@
-From 5181bb6055e823063be5912fcdad8c4d6588041c Mon Sep 17 00:00:00 2001
+From 1555165cc65a58524093f79965034e1b05d43938 Mon Sep 17 00:00:00 2001
 From: Olivier Roussel <olivier.roussel@inria.fr>
 Date: Thu, 3 Apr 2025 16:53:08 +0200
 Subject: [PATCH] force symbol exports for static private variable on clang-cl
 
 ---
- dtool/src/prc/configFlags.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ dtool/src/prc/configFlags.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/dtool/src/prc/configFlags.h b/dtool/src/prc/configFlags.h
-index f4b95757d6..6b383153a2 100644
+index f4b95757d6..c197387a52 100644
 --- a/dtool/src/prc/configFlags.h
 +++ b/dtool/src/prc/configFlags.h
-@@ -57,6 +57,11 @@ PUBLISHED:
+@@ -57,6 +57,12 @@ PUBLISHED:
      F_dconfig           = 0x00008000,
    };
  
++public:
 +  // This method is only defined to expose symbols for private _global_modified variable,
 +  // otherwise compilers such Clang-cl would not create symbols as it is private and its 
 +  // accessors are protected
