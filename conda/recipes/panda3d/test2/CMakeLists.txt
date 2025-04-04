@@ -910,8 +910,8 @@ include(cmake/AddExtraCompilationFlags.cmake) # should be called after FindOpenM
 #----------------------------------------------------------------------
 include(cmake/VISPModule.cmake)
 
-# process subdirectories
-add_subdirectory(modules)
+# # process subdirectories
+# add_subdirectory(modules)
 
 #-------------------------------------------------------------------------------
 # specific things that need to be updated in vpConfig.h
@@ -1139,7 +1139,7 @@ include(cmake/VISPGenerateHeaders.cmake)
 #   find_package(VISP REQUIRED)
 #   include_directories(${VISP_INCLUDE_DIRS})
 #   target_link_libraries(<target> ${VISP_LIBRARIES})
-include(cmake/VISPGenerateConfig.cmake)
+# include(cmake/VISPGenerateConfig.cmake)
 
 # Generate Info.plist for the IOS/OSX frameworks
 if(APPLE_FRAMEWORK)
@@ -1715,7 +1715,7 @@ vp_finalize_status()
 # visp_add_target(foo.cpp)
 
 
-find_package(MyPanda3d REQUIRED)
+find_package(MyPanda3D REQUIRED)
 find_package(Eigen3 REQUIRED CONFIG)
 
 find_package(OpenMP REQUIRED)
