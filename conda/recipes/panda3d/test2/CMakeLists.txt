@@ -503,7 +503,7 @@ VP_OPTION(USE_DIRECTSHOW  DIRECTSHOW  ""    "Include dshow support"            "
 VP_OPTION(USE_OPENMP      OpenMP      ""    "Include openmp support"           "" ON)
 VP_OPTION(USE_EIGEN3      Eigen3      QUIET "Include eigen3 support"           "" ON IF NOT WINRT AND NOT IOS)
 VP_OPTION(USE_COIN3D      Coin3D      ""    "Include coin3d support"           "" ON IF OPENGL_FOUND AND NOT WINRT AND NOT IOS)
-VP_OPTION(USE_PANDA3D     "MyPanda3D" ""    "Include Panda3D support"          "" ON IF NOT IOS)
+VP_OPTION(USE_PANDA3D     "Panda3d" ""    "Include Panda3D support"          "" ON IF NOT IOS)
 VP_OPTION(USE_YARP        YARP        QUIET "Include yarp support"             "YARP_DIR" ON IF NOT WINRT AND NOT IOS)
 VP_OPTION(USE_OGRE        OGRE        QUIET "Include Ogre3D support"           "OGRE_DIR" ON IF NOT WINRT AND NOT IOS)
 VP_OPTION(USE_OIS         OIS         QUIET "Include Ogre3D/ois support"       "OIS_DIR"  ON IF USE_OGRE AND NOT WINRT AND NOT IOS)
@@ -911,7 +911,7 @@ include(cmake/AddExtraCompilationFlags.cmake) # should be called after FindOpenM
 include(cmake/VISPModule.cmake)
 
 # # process subdirectories
-# add_subdirectory(modules)
+add_subdirectory(modules)
 
 #-------------------------------------------------------------------------------
 # specific things that need to be updated in vpConfig.h
