@@ -1,0 +1,32 @@
+From 6f3083e6366b66766fda7c964644868e403a3b9e Mon Sep 17 00:00:00 2001
+From: Olivier Roussel <olivier.roussel@inria.fr>
+Date: Fri, 4 Apr 2025 09:11:13 +0200
+Subject: [PATCH] force export symbols on static private members
+
+---
+ dtool/src/prc/configFlags.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/dtool/src/prc/configFlags.h b/dtool/src/prc/configFlags.h
+index f4b95757d6..e2be364c9a 100644
+--- a/dtool/src/prc/configFlags.h
++++ b/dtool/src/prc/configFlags.h
+@@ -57,13 +57,13 @@ PUBLISHED:
+     F_dconfig           = 0x00008000,
+   };
+ 
+-protected:
++public:
+   ALWAYS_INLINE static bool is_cache_valid(AtomicAdjust::Integer local_modified);
+   ALWAYS_INLINE static void mark_cache_valid(AtomicAdjust::Integer &local_modified);
+   INLINE static AtomicAdjust::Integer initial_invalid_cache();
+   INLINE static void invalidate_cache();
+ 
+-private:
++public:
+   static TVOLATILE AtomicAdjust::Integer _global_modified;
+ };
+ 
+-- 
+2.34.1
+
