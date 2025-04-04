@@ -911,7 +911,7 @@ include(cmake/AddExtraCompilationFlags.cmake) # should be called after FindOpenM
 include(cmake/VISPModule.cmake)
 
 # # process subdirectories
-# add_subdirectory(modules)
+add_subdirectory(modules)
 
 #-------------------------------------------------------------------------------
 # specific things that need to be updated in vpConfig.h

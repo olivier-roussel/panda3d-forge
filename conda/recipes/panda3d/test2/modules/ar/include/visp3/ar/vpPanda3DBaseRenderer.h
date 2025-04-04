@@ -238,7 +238,7 @@ public:
 
   static inline const vpHomogeneousMatrix& vispToPanda() { return PANDA_T_VISP; }
 
-protected:
+public:
 
   /**
    * @brief Initialize the scene for this specific renderer.
