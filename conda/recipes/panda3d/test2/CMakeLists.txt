@@ -63,8 +63,12 @@ target_link_libraries(TestLib PUBLIC
   panda3d::p3framework
   ZLIB::ZLIB)
 
-set(CMAKE_SHARED_LINKER_FLAGS "/INCREMENTAL:NO /DEBUG /NODEFAULTLIB:libc")
+set(CMAKE_SHARED_LINKER_FLAGS "/machine:x64 /INCREMENTAL:NO /DEBUG /NODEFAULTLIB:libc")
 
+set(CMAKE_CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc  -Wall -Wextra -Xclang -fopenmp /Gy /bigobj /MD /O2 /Ob2 /DNDEBUG")
+set(CMAKE_C_FLAGS "/DWIN32 /D_WINDOWS /W3  -Wall -Wextra -Xclang -fopenmp /MD /O2 /Ob2 /DNDEBUG")
+
+message("==== CMAKE_C_FLAGS = ${CMAKE_C_FLAGS}")
 message("==== CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
 # message("== before CMAKE_SHARED_LINKER_FLAGS = ${CMAKE_SHARED_LINKER_FLAGS}")
 # string(REPLACE "/INCREMENTAL " "/INCREMENTAL:NO " CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}")
