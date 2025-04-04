@@ -35,9 +35,9 @@
 
 #if defined(VISP_HAVE_PANDA3D)
 #include <visp3/ar/vpPanda3DBaseRenderer.h>
-#include "cardMaker.h"
-#include "orthographicLens.h"
-#include "frameBufferProperties.h"
+#include <panda3d/cardMaker.h>
+#include <panda3d/orthographicLens.h>
+#include <panda3d/frameBufferProperties.h>
 
 BEGIN_VISP_NAMESPACE
 /**

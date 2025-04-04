@@ -32,7 +32,7 @@
 
 #if defined(VISP_HAVE_PANDA3D)
 
-#include "load_prc_file.h"
+#include <panda3d/load_prc_file.h>
 
 BEGIN_VISP_NAMESPACE
 

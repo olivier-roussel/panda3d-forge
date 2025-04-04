@@ -40,11 +40,11 @@
 #include <visp3/core/vpRGBf.h>
 #include <visp3/ar/vpPanda3DBaseRenderer.h>
 
-#include "nodePath.h"
-#include "ambientLight.h"
-#include "directionalLight.h"
-#include "pointLight.h"
-#include "directionalLight.h"
+#include <panda3d/nodePath.h>
+#include <panda3d/ambientLight.h>
+#include <panda3d/directionalLight.h>
+#include <panda3d/pointLight.h>
+#include <panda3d/directionalLight.h>
 
 BEGIN_VISP_NAMESPACE
 /**

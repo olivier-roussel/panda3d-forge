@@ -35,8 +35,8 @@
 
 #if defined(VISP_HAVE_PANDA3D)
 
-#include <pandaFramework.h>
-#include <pandaSystem.h>
+#include <panda3d/pandaFramework.h>
+#include <panda3d/pandaSystem.h>
 
 
 BEGIN_VISP_NAMESPACE

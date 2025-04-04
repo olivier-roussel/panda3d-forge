@@ -32,8 +32,8 @@
 #include <visp3/ar/vpPanda3DRenderParameters.h>
 #if defined(VISP_HAVE_PANDA3D)
 
-#include <matrixLens.h>
-#include <camera.h>
+#include <panda3d/matrixLens.h>
+#include <panda3d/camera.h>
 
 BEGIN_VISP_NAMESPACE
 void vpPanda3DRenderParameters::setupPandaCamera(Camera *camera)

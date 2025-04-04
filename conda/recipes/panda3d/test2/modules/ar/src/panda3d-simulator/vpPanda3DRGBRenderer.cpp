@@ -32,12 +32,12 @@
 
 #if defined(VISP_HAVE_PANDA3D)
 
-#include "orthographicLens.h"
-#include "cardMaker.h"
-#include "texturePool.h"
-#include "graphicsOutput.h"
-#include "graphicsEngine.h"
-#include "windowFramework.h"
+#include <panda3d/orthographicLens.h>
+#include <panda3d/cardMaker.h>
+#include <panda3d/texturePool.h>
+#include <panda3d/graphicsOutput.h>
+#include <panda3d/graphicsEngine.h>
+#include <panda3d/windowFramework.h>
 
 
 BEGIN_VISP_NAMESPACE

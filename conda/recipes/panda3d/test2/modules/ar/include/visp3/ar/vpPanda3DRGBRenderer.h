@@ -39,7 +39,7 @@
 #include <visp3/ar/vpPanda3DLight.h>
 #include <visp3/core/vpImage.h>
 
-#include "pointerTo.h"
+#include <panda3d/pointerTo.h>
 
 BEGIN_VISP_NAMESPACE
 /**

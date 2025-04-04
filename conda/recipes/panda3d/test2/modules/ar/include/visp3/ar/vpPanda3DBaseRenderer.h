@@ -38,12 +38,12 @@
 #include <visp3/core/vpCameraParameters.h>
 #include <visp3/ar/vpPanda3DRenderParameters.h>
 
-#include <windowFramework.h>
-#include <graphicsOutput.h>
+#include <panda3d/windowFramework.h>
+#include <panda3d/graphicsOutput.h>
 
-#include <nodePath.h>
-#include <pointerTo.h>
-#include <camera.h>
+#include <panda3d/nodePath.h>
+#include <panda3d/pointerTo.h>
+#include <panda3d/camera.h>
 
 
 BEGIN_VISP_NAMESPACE

@@ -33,8 +33,8 @@
 
 #if defined(VISP_HAVE_PANDA3D)
 
-#include "windowFramework.h"
-#include "graphicsOutput.h"
+#include <panda3d/windowFramework.h>
+#include <panda3d/graphicsOutput.h>
 
 
 BEGIN_VISP_NAMESPACE

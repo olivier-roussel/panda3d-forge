@@ -36,13 +36,13 @@
 #include <visp3/core/vpMath.h>
 
 
-#include <antialiasAttrib.h>
-#include "boundingSphere.h"
-#include "boundingBox.h"
-#include "thread.h"
-#include "load_prc_file.h"
-#include "windowFramework.h"
-#include "graphicsOutput.h"
+#include <panda3d/antialiasAttrib.h>
+#include <panda3d/boundingSphere.h>
+#include <panda3d/boundingBox.h>
+#include <panda3d/thread.h>
+#include <panda3d/load_prc_file.h>
+#include <panda3d/windowFramework.h>
+#include <panda3d/graphicsOutput.h>
 
 BEGIN_VISP_NAMESPACE
 const vpHomogeneousMatrix vpPanda3DBaseRenderer::VISP_T_PANDA({

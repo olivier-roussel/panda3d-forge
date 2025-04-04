@@ -33,10 +33,10 @@
 #if defined(VISP_HAVE_PANDA3D)
 
 #include <visp3/ar/vpPanda3DGeometryRenderer.h>
-#include "windowFramework.h"
-#include "graphicsOutput.h"
-#include "graphicsEngine.h"
-#include "graphicsBuffer.h"
+#include <panda3d/windowFramework.h>
+#include <panda3d/graphicsOutput.h>
+#include <panda3d/graphicsEngine.h>
+#include <panda3d/graphicsBuffer.h>
 
 BEGIN_VISP_NAMESPACE
 
