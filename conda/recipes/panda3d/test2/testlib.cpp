@@ -12,6 +12,10 @@
 #include <panda3d/pointerTo.h>
 #include <panda3d/camera.h>
 
+#include <panda3d/pandaFramework.h>
+
+#include <panda3d/pandaSystem.h>
+
 #include <opencv2/opencv.hpp>
  
 int doStuff() {
@@ -32,6 +36,15 @@ int doStuff() {
 
   DisplayRegion *region;
   region->set_clear_color(LColor(0.f));
+
+  PandaFramework framework;
+  PointerTo<WindowFramework> m_window;
+  m_window = framework.open_window(win_prop, flags, nullptr, nullptr);
+  // try and reopen with visible window
+  if (m_window == nullptr) {
+    win_prop.set_minimized(true);
+    m_window = framework.open_window(win_prop, 0, nullptr, nullptr);
+  }
 
   const auto dummy = ConfigVariableBool("dummy");
 

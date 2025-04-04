@@ -911,7 +911,7 @@ include(cmake/AddExtraCompilationFlags.cmake) # should be called after FindOpenM
 include(cmake/VISPModule.cmake)
 
 # # process subdirectories
-add_subdirectory(modules)
+# add_subdirectory(modules)
 
 #-------------------------------------------------------------------------------
 # specific things that need to be updated in vpConfig.h
@@ -1715,14 +1715,13 @@ vp_finalize_status()
 # visp_add_target(foo.cpp)
 
 
-find_package(MyPanda3D REQUIRED)
+# find_package(Panda3d REQUIRED)
 find_package(Eigen3 REQUIRED CONFIG)
 
 find_package(OpenMP REQUIRED)
 
 # # find_package(MyOpenCV REQUIRED)
 find_package(OpenCV REQUIRED core imgproc highgui calib3d features2d)
-# add_library(TestLib SHARED testlib.cpp testlib.h)
 
 # find_package(OpenMP REQUIRED)
 
@@ -1745,28 +1744,28 @@ find_package(OpenCV REQUIRED core imgproc highgui calib3d features2d)
 #   message("== OpenCV_LIBS = ${OpenCV_LIBS}")
 
 
-
-# # target_include_directories(TestLib PRIVATE ${OpenCV_INCLUDE_DIRS})
+add_library(TestLib SHARED testlib.cpp testlib.h)
+target_include_directories(TestLib PRIVATE ${OpenCV_INCLUDE_DIRS})
 
 # set(ExtraWinLibs "winmm.lib  rpcrt4.lib  ws2_32.lib")
 
-# target_link_libraries(TestLib PUBLIC 
-#   # OpenMP::OpenMP_CXX
-#   ${opt_libs}
-#   ${ExtraWinLibs}
-#   opencv_core
-#   opencv_imgproc
-#   opencv_highgui
-#   opencv_calib3d
-#   opencv_features2d
-#   Eigen3::Eigen
-#   panda3d::panda
-#   panda3d::p3direct
-#   panda3d::pandaexpress
-#   panda3d::p3dtoolconfig
-#   panda3d::p3dtool
-#   panda3d::p3framework
-#   ZLIB::ZLIB)
+target_link_libraries(TestLib PUBLIC 
+  # OpenMP::OpenMP_CXX
+  ${opt_libs}
+  ${ExtraWinLibs}
+  opencv_core
+  opencv_imgproc
+  opencv_highgui
+  opencv_calib3d
+  opencv_features2d
+  Eigen3::Eigen
+  panda3d::panda
+  panda3d::p3direct
+  panda3d::pandaexpress
+  panda3d::p3dtoolconfig
+  panda3d::p3dtool
+  panda3d::p3framework
+  ZLIB::ZLIB)
 
 # set(CMAKE_SHARED_LINKER_FLAGS "/machine:x64 /INCREMENTAL:NO /DEBUG /NODEFAULTLIB:libc")
 
@@ -1780,11 +1779,11 @@ find_package(OpenCV REQUIRED core imgproc highgui calib3d features2d)
 # # message("== after CMAKE_SHARED_LINKER_FLAGS = ${CMAKE_SHARED_LINKER_FLAGS}")
 # # message("== OpenMP_CXX_FLAGS = ${OpenMP_CXX_FLAGS}")
 
-add_executable(FooExe foo.cpp)
-target_include_directories(FooExe PRIVATE ${Panda3D_INCLUDE_DIRS})
-target_link_libraries(FooExe PUBLIC 
-  Eigen3::Eigen
-  ${Panda3D_LIBRARIES})
+# add_executable(FooExe foo.cpp)
+# target_include_directories(FooExe PRIVATE ${Panda3D_INCLUDE_DIRS})
+# target_link_libraries(FooExe PUBLIC 
+#   Eigen3::Eigen
+#   ${Panda3D_LIBRARIES})
   # panda3d::panda
   # panda3d::pandaexpress
   # panda3d::p3dtoolconfig
