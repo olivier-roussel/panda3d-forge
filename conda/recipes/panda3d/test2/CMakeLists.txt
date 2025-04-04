@@ -1710,22 +1710,18 @@ vp_finalize_status()
 
 # ----------------- END VISP CMakeLists ------------------------------
 
-find_package(VISP REQUIRED visp_core visp_ar)
+# find_package(VISP REQUIRED visp_core visp_ar)
 
-visp_add_target(foo.cpp)
-# if(COMMAND visp_add_dependency)
-#   visp_add_dependency(test.cpp "examples")
-# endif()
+# visp_add_target(foo.cpp)
 
 
+find_package(MyPanda3d REQUIRED)
+find_package(Eigen3 REQUIRED CONFIG)
 
-# find_package(Panda3d REQUIRED)
-# find_package(Eigen3 REQUIRED CONFIG)
-
-# find_package(OpenMP REQUIRED)
+find_package(OpenMP REQUIRED)
 
 # # find_package(MyOpenCV REQUIRED)
-# find_package(OpenCV REQUIRED core imgproc highgui calib3d features2d)
+find_package(OpenCV REQUIRED core imgproc highgui calib3d features2d)
 # add_library(TestLib SHARED testlib.cpp testlib.h)
 
 # find_package(OpenMP REQUIRED)
@@ -1783,11 +1779,14 @@ visp_add_target(foo.cpp)
 # # string(REPLACE "/INCREMENTAL " "/INCREMENTAL:NO " CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}")
 # # message("== after CMAKE_SHARED_LINKER_FLAGS = ${CMAKE_SHARED_LINKER_FLAGS}")
 # # message("== OpenMP_CXX_FLAGS = ${OpenMP_CXX_FLAGS}")
-# # add_executable(TestExe test.cpp)
-# # target_link_libraries(TestExe PUBLIC 
-# #   Eigen3::Eigen
-# #   panda3d::panda
-# #   panda3d::pandaexpress
-# #   panda3d::p3dtoolconfig
-# #   panda3d::p3dtool
-# #   panda3d::p3framework)
+
+add_executable(FooExe foo.cpp)
+target_include_directories(FooExe PRIVATE ${Panda3D_INCLUDE_DIRS})
+target_link_libraries(FooExe PUBLIC 
+  Eigen3::Eigen
+  ${Panda3D_LIBRARIES})
+  # panda3d::panda
+  # panda3d::pandaexpress
+  # panda3d::p3dtoolconfig
+  # panda3d::p3dtool
+  # panda3d::p3framework)
