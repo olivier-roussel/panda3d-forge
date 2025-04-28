@@ -120,14 +120,14 @@ void vpPanda3DGeometryRenderer::setupRenderTarget()
   //   throw vpException(vpException::fatalError, "Cannot setup render target when window is null");
   // }
   FrameBufferProperties fbp;
-  // fbp.set_rgb_color(true);
-  // fbp.set_float_depth(false);
-  // fbp.set_float_color(true);
-  // fbp.set_depth_bits(16);
-  // fbp.set_rgba_bits(32, 32, 32, 32);
+  fbp.set_rgb_color(true);
+  fbp.set_float_depth(false);
+  fbp.set_float_color(true);
+  fbp.set_depth_bits(16);
+  fbp.set_rgba_bits(32, 32, 32, 32);
 
   WindowProperties win_prop;
-  // win_prop.set_size(m_renderParameters.getImageWidth(), m_renderParameters.getImageHeight());
+  win_prop.set_size(m_renderParameters.getImageWidth(), m_renderParameters.getImageHeight());
   // Don't open a window - force it to be an offscreen buffer.
   int flags = GraphicsPipe::BF_refuse_window  | GraphicsPipe::BF_resizeable;
   GraphicsOutput *windowOutput = m_window->get_graphics_output();
@@ -135,8 +135,8 @@ void vpPanda3DGeometryRenderer::setupRenderTarget()
   GraphicsPipe *pipe = windowOutput->get_pipe();
 
   static int id = 0;
-  // m_normalDepthBuffer = engine->make_output(pipe, renderTypeToName(m_renderType) + std::to_string(id), m_renderOrder, fbp, win_prop, flags,
-  //                                           windowOutput->get_gsg(), windowOutput);
+  m_normalDepthBuffer = engine->make_output(pipe, renderTypeToName(m_renderType) + std::to_string(id), m_renderOrder, fbp, win_prop, flags,
+                                            windowOutput->get_gsg(), windowOutput);
   m_normalDepthTexture = new Texture("geometry texture " + std::to_string(id));
   ++id;
   // if (m_normalDepthBuffer == nullptr) {
