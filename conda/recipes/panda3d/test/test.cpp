@@ -6,6 +6,7 @@
 int main(int argc, char *argv[]) {
   GraphicsOutput *windowOutput;
   auto dummy = windowOutput->get_gsg();
+  auto dummy2 = dummy->get_copy_texture_inverted();
   // PointerTo<GraphicsOutput> m_normalDepthBuffer;
   // m_normalDepthBuffer->set_inverted(windowOutput->get_gsg()->get_copy_texture_inverted());
   return 0;
