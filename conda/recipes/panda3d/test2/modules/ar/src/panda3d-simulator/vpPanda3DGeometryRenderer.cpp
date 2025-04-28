@@ -116,18 +116,18 @@ void vpPanda3DGeometryRenderer::setupScene()
 
 void vpPanda3DGeometryRenderer::setupRenderTarget()
 {
-  if (m_window == nullptr) {
-    throw vpException(vpException::fatalError, "Cannot setup render target when window is null");
-  }
+  // if (m_window == nullptr) {
+  //   throw vpException(vpException::fatalError, "Cannot setup render target when window is null");
+  // }
   FrameBufferProperties fbp;
-  fbp.set_rgb_color(true);
-  fbp.set_float_depth(false);
-  fbp.set_float_color(true);
-  fbp.set_depth_bits(16);
-  fbp.set_rgba_bits(32, 32, 32, 32);
+  // fbp.set_rgb_color(true);
+  // fbp.set_float_depth(false);
+  // fbp.set_float_color(true);
+  // fbp.set_depth_bits(16);
+  // fbp.set_rgba_bits(32, 32, 32, 32);
 
   WindowProperties win_prop;
-  win_prop.set_size(m_renderParameters.getImageWidth(), m_renderParameters.getImageHeight());
+  // win_prop.set_size(m_renderParameters.getImageWidth(), m_renderParameters.getImageHeight());
   // Don't open a window - force it to be an offscreen buffer.
   int flags = GraphicsPipe::BF_refuse_window  | GraphicsPipe::BF_resizeable;
   GraphicsOutput *windowOutput = m_window->get_graphics_output();
@@ -135,30 +135,28 @@ void vpPanda3DGeometryRenderer::setupRenderTarget()
   GraphicsPipe *pipe = windowOutput->get_pipe();
 
   static int id = 0;
-  m_normalDepthBuffer = engine->make_output(pipe, renderTypeToName(m_renderType) + std::to_string(id), m_renderOrder, fbp, win_prop, flags,
-                                            windowOutput->get_gsg(), windowOutput);
+  // m_normalDepthBuffer = engine->make_output(pipe, renderTypeToName(m_renderType) + std::to_string(id), m_renderOrder, fbp, win_prop, flags,
+  //                                           windowOutput->get_gsg(), windowOutput);
   m_normalDepthTexture = new Texture("geometry texture " + std::to_string(id));
   ++id;
-  if (m_normalDepthBuffer == nullptr) {
-    throw vpException(vpException::fatalError, "Could not create geometry info buffer");
-  }
-  // if (!m_normalDepthBuffer->is_valid()) {
-  //   throw vpException(vpException::fatalError, "Geometry info buffer is invalid");
+  // if (m_normalDepthBuffer == nullptr) {
+  //   throw vpException(vpException::fatalError, "Could not create geometry info buffer");
   // }
-  m_buffers.push_back(m_normalDepthBuffer);
-  m_normalDepthBuffer->set_inverted(windowOutput->get_gsg()->get_copy_texture_inverted());
-  fbp.setup_color_texture(m_normalDepthTexture);
-  m_normalDepthTexture->set_format(Texture::F_rgba32);
-  m_normalDepthBuffer->add_render_texture(m_normalDepthTexture, GraphicsOutput::RenderTextureMode::RTM_copy_texture, GraphicsOutput::RenderTexturePlane::RTP_color);
-  m_normalDepthBuffer->set_clear_color(LColor(0.f));
-  m_normalDepthBuffer->set_clear_color_active(true);
+
+  // m_buffers.push_back(m_normalDepthBuffer);
+  // m_normalDepthBuffer->set_inverted(windowOutput->get_gsg()->get_copy_texture_inverted());
+  // fbp.setup_color_texture(m_normalDepthTexture);
+  // m_normalDepthTexture->set_format(Texture::F_rgba32);
+  // m_normalDepthBuffer->add_render_texture(m_normalDepthTexture, GraphicsOutput::RenderTextureMode::RTM_copy_texture, GraphicsOutput::RenderTexturePlane::RTP_color);
+  // m_normalDepthBuffer->set_clear_color(LColor(0.f));
+  // m_normalDepthBuffer->set_clear_color_active(true);
 
   DisplayRegion *region = m_normalDepthBuffer->make_display_region();
-  if (region == nullptr) {
-    throw vpException(vpException::fatalError, "Could not create display region");
-  }
-  region->set_camera(m_cameraPath);
-  region->set_clear_color(LColor(0.f));
+  // if (region == nullptr) {
+  //   throw vpException(vpException::fatalError, "Could not create display region");
+  // }
+  // region->set_camera(m_cameraPath);
+  // region->set_clear_color(LColor(0.f));
 }
 
 void vpPanda3DGeometryRenderer::getRender(vpImage<vpRGBf> &normals, vpImage<float> &depth) const
