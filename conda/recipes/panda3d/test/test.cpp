@@ -5,9 +5,11 @@
 
 int main(int argc, char *argv[]) {
   GraphicsOutput *windowOutput;
-  auto dummy = windowOutput->get_gsg();
-  auto dummy2 = dummy->get_copy_texture_inverted();
-  // PointerTo<GraphicsOutput> m_normalDepthBuffer;
-  // m_normalDepthBuffer->set_inverted(windowOutput->get_gsg()->get_copy_texture_inverted());
+  GraphicsStateGuardian* gsg = windowOutput->get_gsg();
+
+  // XXX faulty call that makes clang-cl linker fail with
+  // error: undefined symbol: __declspec(dllimport) private: static long volatile ConfigFlags::_global_modified
+  auto dummy2 = gsg->get_copy_texture_inverted(); 
+  
   return 0;
 }
