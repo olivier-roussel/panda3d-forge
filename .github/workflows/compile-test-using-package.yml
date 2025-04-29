@@ -127,4 +127,6 @@ jobs:
       shell: cmd /C CALL {0}
       run: |
         cd conda/recipes/panda3d/test/build
+        set CC=${{ matrix.compiler }}
+        set CXX=${{ matrix.compiler }}        
         cmake --build .
