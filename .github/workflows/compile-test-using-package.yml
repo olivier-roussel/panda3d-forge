@@ -124,7 +124,7 @@ jobs:
     - name: Build [Conda/Windows]
       if: contains(matrix.os, 'windows-')
       # It's better to use CMD to have all VS variables setup
-      shell: cmd /C CALL {0}
+      shell: bash -l {0}
       run: |
         cd conda/recipes/panda3d/test/build
         set CC=${{ matrix.compiler }}
