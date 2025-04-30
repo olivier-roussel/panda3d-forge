@@ -1,0 +1,131 @@
+From a76c236cb8e332017e043e7e9711f335dc498d36 Mon Sep 17 00:00:00 2001
+From: Olivier Roussel <olivier.roussel@inria.fr>
+Date: Wed, 30 Apr 2025 16:55:03 +0200
+Subject: [PATCH] fix invalid inline expansion with clang-cl v3
+
+---
+ dtool/src/prc/configFlags.I   | 40 +----------------------------------
+ dtool/src/prc/configFlags.cxx | 38 +++++++++++++++++++++++++++++++++
+ dtool/src/prc/configFlags.h   |  8 +++----
+ 3 files changed, 43 insertions(+), 43 deletions(-)
+
+diff --git a/dtool/src/prc/configFlags.I b/dtool/src/prc/configFlags.I
+index 6f35c4d814..e3b86bc506 100644
+--- a/dtool/src/prc/configFlags.I
++++ b/dtool/src/prc/configFlags.I
+@@ -9,42 +9,4 @@
+  * @file configFlags.I
+  * @author drose
+  * @date 2004-10-21
+- */
+-
+-/**
+- * Returns true if the local object's cache is still valid (based on a
+- * comparison of the supplied local_modified value with the global_modified
+- * value).
+- */
+-ALWAYS_INLINE bool ConfigFlags::
+-is_cache_valid(AtomicAdjust::Integer local_modified) {
+-  return local_modified == _global_modified;
+-}
+-
+-/**
+- * Updates the indicated local_modified value so that the cache will appear to
+- * be valid, until someone next calls invalidate_cache().
+- */
+-ALWAYS_INLINE void ConfigFlags::
+-mark_cache_valid(AtomicAdjust::Integer &local_modified) {
+-  local_modified = _global_modified;
+-}
+-
+-/**
+- * Returns a value that will be appropriate for initializing a local_modified
+- * value.  This value will indicate an invalid cache in the next call to
+- * is_cache_valid().
+- */
+-INLINE AtomicAdjust::Integer ConfigFlags::
+-initial_invalid_cache() {
+-  return _global_modified - 1;
+-}
+-
+-/**
+- * Invalidates all of the global ConfigVariable caches in the world at once,
+- * by incrementing the global_modified counter.
+- */
+-INLINE void ConfigFlags::
+-invalidate_cache() {
+-  AtomicAdjust::inc(_global_modified);
+-}
++ */
+\ No newline at end of file
+diff --git a/dtool/src/prc/configFlags.cxx b/dtool/src/prc/configFlags.cxx
+index 4613dc4615..aa2e6d317c 100644
+--- a/dtool/src/prc/configFlags.cxx
++++ b/dtool/src/prc/configFlags.cxx
+@@ -15,6 +15,44 @@
+ 
+ TVOLATILE AtomicAdjust::Integer ConfigFlags::_global_modified;
+ 
++/**
++ * Returns true if the local object's cache is still valid (based on a
++ * comparison of the supplied local_modified value with the global_modified
++ * value).
++ */
++bool ConfigFlags::
++is_cache_valid(AtomicAdjust::Integer local_modified) {
++  return local_modified == _global_modified;
++}
++
++/**
++ * Updates the indicated local_modified value so that the cache will appear to
++ * be valid, until someone next calls invalidate_cache().
++ */
++void ConfigFlags::
++mark_cache_valid(AtomicAdjust::Integer &local_modified) {
++  local_modified = _global_modified;
++}
++
++/**
++ * Returns a value that will be appropriate for initializing a local_modified
++ * value.  This value will indicate an invalid cache in the next call to
++ * is_cache_valid().
++ */
++AtomicAdjust::Integer ConfigFlags::
++initial_invalid_cache() {
++  return _global_modified - 1;
++}
++
++/**
++ * Invalidates all of the global ConfigVariable caches in the world at once,
++ * by incrementing the global_modified counter.
++ */
++void ConfigFlags::
++invalidate_cache() {
++  AtomicAdjust::inc(_global_modified);
++}
++
+ /**
+  *
+  */
+diff --git a/dtool/src/prc/configFlags.h b/dtool/src/prc/configFlags.h
+index f4b95757d6..270779e4d7 100644
+--- a/dtool/src/prc/configFlags.h
++++ b/dtool/src/prc/configFlags.h
+@@ -58,10 +58,10 @@ PUBLISHED:
+   };
+ 
+ protected:
+-  ALWAYS_INLINE static bool is_cache_valid(AtomicAdjust::Integer local_modified);
+-  ALWAYS_INLINE static void mark_cache_valid(AtomicAdjust::Integer &local_modified);
+-  INLINE static AtomicAdjust::Integer initial_invalid_cache();
+-  INLINE static void invalidate_cache();
++  static bool is_cache_valid(AtomicAdjust::Integer local_modified);
++  static void mark_cache_valid(AtomicAdjust::Integer &local_modified);
++  static AtomicAdjust::Integer initial_invalid_cache();
++  static void invalidate_cache();
+ 
+ private:
+   static TVOLATILE AtomicAdjust::Integer _global_modified;
+-- 
+2.34.1
+
