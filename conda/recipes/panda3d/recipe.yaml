@@ -1,7 +1,7 @@
 context:
   name: panda3d
   version: 1.10.15
-  build_num: 108
+  build_num: 109
 
 package:
   name: ${{ name }}
@@ -28,7 +28,7 @@ source:
     # fix the ressource model directory to installed on in <prefix>/share/panda3d
     - patches/fix-model-path-in-config.prc-template.patch
 
-    - patches/0001-fix-invalid-inline-expansion-with-clang-cl-v3.patch
+    - patches/0001-fix-invalid-inline-expansion-with-clang-cl-v4.patch
 
 build:
   number: ${{ build_num }}
