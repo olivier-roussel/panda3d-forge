@@ -28,7 +28,7 @@ source:
     # fix the ressource model directory to installed on in <prefix>/share/panda3d
     - patches/fix-model-path-in-config.prc-template.patch
 
-    - patches/0001-fix-invalid-inline-expansion-with-clang-cl.patch
+    - patches/0001-fix-invalid-inline-expansion-with-clang-cl-v2.patch
 
 build:
   number: ${{ build_num }}
