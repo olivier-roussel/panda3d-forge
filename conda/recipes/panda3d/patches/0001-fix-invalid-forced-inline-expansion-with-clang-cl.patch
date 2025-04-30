@@ -1,0 +1,25 @@
+From ed7574b2d0d0ccda16d1fbcec94305dfb129a872 Mon Sep 17 00:00:00 2001
+From: Olivier Roussel <olivier.roussel@inria.fr>
+Date: Wed, 30 Apr 2025 10:07:40 +0200
+Subject: [PATCH] fix invalid forced inline expansion with clang-cl
+
+---
+ dtool/src/prc/configFlags.I | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dtool/src/prc/configFlags.I b/dtool/src/prc/configFlags.I
+index 6f35c4d814..295bdb3c26 100644
+--- a/dtool/src/prc/configFlags.I
++++ b/dtool/src/prc/configFlags.I
+@@ -16,7 +16,7 @@
+  * comparison of the supplied local_modified value with the global_modified
+  * value).
+  */
+-ALWAYS_INLINE bool ConfigFlags::
++INLINE bool ConfigFlags::
+ is_cache_valid(AtomicAdjust::Integer local_modified) {
+   return local_modified == _global_modified;
+ }
+-- 
+2.34.1
+
