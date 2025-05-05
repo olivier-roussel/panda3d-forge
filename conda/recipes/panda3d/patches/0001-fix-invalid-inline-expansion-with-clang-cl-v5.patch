@@ -1,0 +1,47 @@
+From c6fff7ae9023c850b40ae2b0ee0400ed0dfc802b Mon Sep 17 00:00:00 2001
+From: Olivier Roussel <olivier.roussel@inria.fr>
+Date: Mon, 5 May 2025 14:51:57 +0200
+Subject: [PATCH] fix invalid inline expansion with clang-cl v5
+
+---
+ dtool/src/prc/configFlags.cxx | 2 +-
+ dtool/src/prc/configFlags.h   | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/dtool/src/prc/configFlags.cxx b/dtool/src/prc/configFlags.cxx
+index aa2e6d317c..fc08b94e50 100644
+--- a/dtool/src/prc/configFlags.cxx
++++ b/dtool/src/prc/configFlags.cxx
+@@ -13,7 +13,7 @@
+ 
+ #include "configFlags.h"
+ 
+-TVOLATILE AtomicAdjust::Integer ConfigFlags::_global_modified;
++AtomicAdjust::Integer ConfigFlags::_global_modified;
+ 
+ /**
+  * Returns true if the local object's cache is still valid (based on a
+diff --git a/dtool/src/prc/configFlags.h b/dtool/src/prc/configFlags.h
+index b0993e2c55..d9698347ca 100644
+--- a/dtool/src/prc/configFlags.h
++++ b/dtool/src/prc/configFlags.h
+@@ -57,14 +57,14 @@ PUBLISHED:
+     F_dconfig           = 0x00008000,
+   };
+ 
+-public:
++PUBLISHED:
+   static bool is_cache_valid(AtomicAdjust::Integer local_modified);
+   static void mark_cache_valid(AtomicAdjust::Integer &local_modified);
+   static AtomicAdjust::Integer initial_invalid_cache();
+   static void invalidate_cache();
+ 
+ private:
+-  static TVOLATILE AtomicAdjust::Integer _global_modified;
++  static AtomicAdjust::Integer _global_modified;
+ };
+ 
+ std::ostream &operator << (std::ostream &out, ConfigFlags::ValueType type);
+-- 
+2.34.1
+

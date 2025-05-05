@@ -1,7 +1,7 @@
 context:
   name: panda3d
   version: 1.10.15
-  build_num: 109
+  build_num: 110
 
 package:
   name: ${{ name }}
@@ -29,6 +29,7 @@ source:
     - patches/fix-model-path-in-config.prc-template.patch
 
     - patches/0001-fix-invalid-inline-expansion-with-clang-cl-v4.patch
+    - patches/0001-fix-invalid-inline-expansion-with-clang-cl-v5.patch
 
 build:
   number: ${{ build_num }}
