@@ -21,6 +21,7 @@ for l in \
     tiff \
     vorbis \
     wx \
+    egl \
     zlib
 do
     export ADDITIONAL_OPTIONS=--$l-incdir\ $PREFIX/include\ $ADDITIONAL_OPTIONS
@@ -30,7 +31,6 @@ done
 export ADDITIONAL_OPTIONS=--eigen-incdir\ $PREFIX/include/eigen3\ $ADDITIONAL_OPTIONS
 # Exclude unwanted dependencies
 for l in \
-    egl \
     gles \
     gles2 \
     opencv
