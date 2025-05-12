@@ -8,10 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [{platform: "linux-64", runner: "ubuntu-latest"},
-                  {platform: "osx-64", runner: "macos-13"},
-                  {platform: "osx-arm64", runner: "macos-14"},
-                  {platform: "win-64", runner: "windows-latest"}]
+        target: [{platform: "linux-64", runner: "ubuntu-latest"}]
         python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
 
     name: "Build and publish panda3d - ${{ matrix.target.platform }} (py${{ matrix.target.python }} ) conda packages on ${{ matrix.target.runner }}"
@@ -69,4 +66,4 @@ jobs:
         cd conda/recipes/
         PKG_DIR=../../../../rattler-bld
         rattler-build build --recipe panda3d/recipe.yaml --variant-config ../configs/${{ matrix.target.platform }}-python${{ matrix.python }}.yaml --output-dir $PKG_DIR -c conda-forge
-        anaconda -t ${{ secrets.ANACONDA_TOKEN_P3D_FORGE }} upload -u panda3d-forge -l main $PKG_DIR/**/*.conda --force
+        anaconda -t ${{ secrets.ANACONDA_TOKEN_PERSO }} upload -u olivier.roussel -l main $PKG_DIR/**/*.conda --force
