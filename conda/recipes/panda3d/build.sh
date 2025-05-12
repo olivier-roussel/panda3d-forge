@@ -34,6 +34,7 @@ export ADDITIONAL_OPTIONS=--eigen-incdir\ $PREFIX/include/eigen3\ $ADDITIONAL_OP
 if [[ "$target_platform" == linux-* ]]; then
     export ADDITIONAL_OPTIONS=--egl-incdir\ $PREFIX/include\ $ADDITIONAL_OPTIONS
     export ADDITIONAL_OPTIONS=--egl-libdir\ $PREFIX/lib\ $ADDITIONAL_OPTIONS
+    export ADDITIONAL_OPTIONS=--no-x11\ $ADDITIONAL_OPTIONS
 fi
 
 # Exclude unwanted dependencies
