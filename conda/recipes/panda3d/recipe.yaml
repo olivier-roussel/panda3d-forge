@@ -1,7 +1,7 @@
 context:
   name: panda3d
   version: 1.10.15
-  build_num: 3
+  build_num: 4
 
 package:
   name: ${{ name }}
@@ -37,6 +37,7 @@ source:
 
 build:
   number: ${{ build_num }}
+  string: withegl_py${{ python | version_to_buildstring }}_h${{ hash }}_${{ build_num }}
   dynamic_linking:
     missing_dso_allowlist:
       - if: osx

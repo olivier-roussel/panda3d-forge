@@ -21,14 +21,21 @@ for l in \
     tiff \
     vorbis \
     wx \
-    egl \
     zlib
 do
     export ADDITIONAL_OPTIONS=--$l-incdir\ $PREFIX/include\ $ADDITIONAL_OPTIONS
     export ADDITIONAL_OPTIONS=--$l-libdir\ $PREFIX/lib\ $ADDITIONAL_OPTIONS
 done
+
 # Special treatment for eigen
 export ADDITIONAL_OPTIONS=--eigen-incdir\ $PREFIX/include/eigen3\ $ADDITIONAL_OPTIONS
+
+# Support for egl is only available on linux
+if [[ "$target_platform" == linux-* ]]; then
+    export ADDITIONAL_OPTIONS=--egl-incdir\ $PREFIX/include\ $ADDITIONAL_OPTIONS
+    export ADDITIONAL_OPTIONS=--egl-libdir\ $PREFIX/lib\ $ADDITIONAL_OPTIONS
+fi
+
 # Exclude unwanted dependencies
 for l in \
     gles \
