@@ -15,6 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         target: [{platform: "linux-64", runner: "ubuntu-latest"},
+                  {platform: "linux-aarch64", runner: "ubuntu-22.04-arm"},
                   {platform: "osx-64", runner: "macos-15-intel"},
                   {platform: "osx-arm64", runner: "macos-15"},
                   {platform: "win-64", runner: "windows-latest"}]
@@ -74,5 +75,22 @@ jobs:
       run: |
         cd conda/recipes/
         PKG_DIR=../../../../rattler-bld
-        rattler-build build --recipe panda3d/recipe.yaml --variant-config ../configs/${{ matrix.target.platform }}-python${{ matrix.python }}.yaml --output-dir $PKG_DIR -c conda-forge
+        # remap given platform to config filename conda-forge standard
+        CONFIG_FILE_SPEC=`echo  ${{ matrix.target.platform }} | sed 's/-/_/g'`_
+        if [ ! -z "${{ matrix.target.python }}" ]; then
+          CONFIG_FILE_SPEC=${CONFIG_FILE_SPEC}python${{ matrix.target.python }}
+          echo "Config file spec: $CONFIG_FILE_SPEC for platform: ${{ matrix.target.platform }} (with python ${{ matrix.target.python }})"
+        else
+          echo "Config file spec: $CONFIG_FILE_SPEC for platform: ${{ matrix.target.platform }} (no python)"
+        fi
+        CONFIG_FILE=`find panda3d/.ci_support -name "$CONFIG_FILE_SPEC*"`
+        if [ -z "$CONFIG_FILE" ] ; then
+          echo "Could not find configuration matching specs $CONFIG_FILE_SPEC for panda3d"
+          echo "It is likely some platform / python-version combination specified in the feedstock parent workflow is deprecated and not anymore supported by conda-forge"
+          echo "Here is the list of available configuration files for the feedstock panda3d:"
+          echo `ls -l panda3d/.ci_support`
+          exit 1
+        fi
+        echo "Config file used for building package: $CONFIG_FILE"
+        rattler-build build --recipe panda3d/recipe/recipe.yaml --variant-config $CONFIG_FILE --output-dir $PKG_DIR -c conda-forge 
         anaconda -t ${{ secrets.ANACONDA_TOKEN_P3D_FORGE }} upload -u panda3d-forge -l main $PKG_DIR/**/*.conda --force
