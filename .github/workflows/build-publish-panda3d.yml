@@ -21,7 +21,7 @@ jobs:
                   {platform: "win-64", runner: "windows-latest"}]
         python: ["3.10", "3.11", "3.12", "3.13"]
 
-    name: "Build and publish panda3d - ${{ matrix.target.platform }} (py${{ matrix.target.python }} ) conda packages on ${{ matrix.target.runner }}"
+    name: "Build and publish panda3d - ${{ matrix.target.platform }} (py${{ matrix.python }} ) conda packages on ${{ matrix.target.runner }}"
     runs-on: ${{ matrix.target.runner }}
     steps:
     - uses: actions/checkout@v4
@@ -77,9 +77,9 @@ jobs:
         PKG_DIR=../../../../rattler-bld
         # remap given platform to config filename conda-forge standard
         CONFIG_FILE_SPEC=`echo  ${{ matrix.target.platform }} | sed 's/-/_/g'`_
-        if [ ! -z "${{ matrix.target.python }}" ]; then
-          CONFIG_FILE_SPEC=${CONFIG_FILE_SPEC}python${{ matrix.target.python }}
-          echo "Config file spec: $CONFIG_FILE_SPEC for platform: ${{ matrix.target.platform }} (with python ${{ matrix.target.python }})"
+        if [ ! -z "${{ matrix.python }}" ]; then
+          CONFIG_FILE_SPEC=${CONFIG_FILE_SPEC}python${{ matrix.python }}
+          echo "Config file spec: $CONFIG_FILE_SPEC for platform: ${{ matrix.target.platform }} (with python ${{ matrix.python }})"
         else
           echo "Config file spec: $CONFIG_FILE_SPEC for platform: ${{ matrix.target.platform }} (no python)"
         fi
