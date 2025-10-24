@@ -1,0 +1,36 @@
+assimp:
+- 5.4.3
+bullet_cpp:
+- '3.25'
+c_compiler:
+- vs2019
+c_stdlib:
+- vs
+cxx_compiler:
+- vs2019
+ffmpeg:
+- '7'
+fftw:
+- '3'
+freetype:
+- '2'
+libjpeg_turbo:
+- '3'
+libode:
+- 0.16.5
+libpng:
+- '1.6'
+mimalloc:
+- 3.0.1
+numpy:
+- '1.23'
+openssl:
+- '3'
+pin_run_as_build:
+  python:
+    max_pin: x.x
+    min_pin: x.x
+python:
+- 3.11.* *_cpython
+zlib:
+- '1'
