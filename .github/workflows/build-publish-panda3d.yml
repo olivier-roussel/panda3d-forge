@@ -2,6 +2,12 @@ name: build-publish-panda3d
 
 on:
   workflow_dispatch:
+  pull_request:
+    types:
+    - opened
+    - reopened
+    paths:
+      - '**/panda3d/.ci_support/*.yaml'
 
 jobs:
   build-publish-panda3d:
@@ -9,10 +15,10 @@ jobs:
       fail-fast: false
       matrix:
         target: [{platform: "linux-64", runner: "ubuntu-latest"},
-                  {platform: "osx-64", runner: "macos-13"},
-                  {platform: "osx-arm64", runner: "macos-14"},
+                  {platform: "osx-64", runner: "macos-15-intel"},
+                  {platform: "osx-arm64", runner: "macos-15"},
                   {platform: "win-64", runner: "windows-latest"}]
-        python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        python: ["3.10", "3.11", "3.12", "3.13"]
 
     name: "Build and publish panda3d - ${{ matrix.target.platform }} (py${{ matrix.target.python }} ) conda packages on ${{ matrix.target.runner }}"
     runs-on: ${{ matrix.target.runner }}
@@ -31,7 +37,7 @@ jobs:
     - name: Install conda environment
       shell: bash -l {0}
       run: |
-        conda install anaconda-client rattler-build=0.40 -c conda-forge
+        conda install anaconda-client rattler-build -c conda-forge
         conda config --set anaconda_upload no
 
     - name: Show conda config
