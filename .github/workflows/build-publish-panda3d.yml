@@ -41,6 +41,11 @@ jobs:
         conda install anaconda-client rattler-build -c conda-forge
         conda config --set anaconda_upload no
 
+    - name: Setup output directory
+      shell: bash -l {0}
+      run: |
+        echo "PKG_DIR=$CONDA_PREFIX/rattler-bld" >> $GITHUB_ENV
+
     - name: Show conda config
       shell: bash -l {0}
       run: |
@@ -74,7 +79,6 @@ jobs:
       shell: bash -l {0}
       run: |
         cd conda/recipes/
-        PKG_DIR=../../../../rattler-bld
         # remap given platform to config filename conda-forge standard
         CONFIG_FILE_SPEC=`echo  ${{ matrix.target.platform }} | sed 's/-/_/g'`_
         if [ ! -z "${{ matrix.python }}" ]; then
@@ -92,5 +96,22 @@ jobs:
           exit 1
         fi
         echo "Config file used for building package: $CONFIG_FILE"
-        rattler-build build --recipe panda3d/recipe/recipe.yaml --variant-config $CONFIG_FILE --output-dir $PKG_DIR -c conda-forge 
-        anaconda -t ${{ secrets.ANACONDA_TOKEN_P3D_FORGE }} upload -u panda3d-forge -l main $PKG_DIR/**/*.conda --force
+        rattler-build build --recipe panda3d/recipe/recipe.yaml --variant-config $CONFIG_FILE --output-dir ${{ env.PKG_DIR }} -c conda-forge 
+
+    # Remove already existing package if any
+    - name: Remove existing package
+      shell: bash -l {0}
+      run: |
+        cd ${{ env.PKG_DIR }}/${{ matrix.target.platform }}
+        for file in panda3d*.conda; do
+          echo "Deleting $file from panda3d-forge channel if already exists..."
+          curl -X DELETE https://prefix.dev/api/v1/delete/panda3d-forge/${{ matrix.target.platform }}/$file -H "Authorization: Bearer ${{ secrets.PREFIX_DEV_PANDA3D_FORGE_API_KEY }}"
+        done
+
+    - name: Publish conda package
+      shell: bash -l {0}
+      run: |
+        for file in ${{ env.PKG_DIR }}/**/panda3d*.conda; do
+          echo "Uploading $file to panda3d-forge channel"
+          rattler-build upload prefix -c panda3d-forge --api-key ${{ secrets.PREFIX_DEV_PANDA3D_FORGE_API_KEY }} "$file"
+        done
