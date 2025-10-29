@@ -44,7 +44,7 @@ jobs:
     - name: Setup output directory
       shell: bash -l {0}
       run: |
-        if [[ ${{ inputs.runner }} == "windows"* ]]; then
+        if [[ ${{ matrix.target.runner }} == "windows"* ]]; then
           echo "PKG_DIR=c:/so/bld" >> $GITHUB_ENV
         else
           echo "PKG_DIR=$CONDA_PREFIX/rattler-bld" >> $GITHUB_ENV
