@@ -2,9 +2,11 @@
 
 CI generating conda packages for [panda3d](https://github.com/panda3d/panda3d).
 
-This is a mirror of conda-forge recipe but its main goal is to provide macOS arm64 packages that are not available yet in conda-forge. Osx-arm64 are made available here thanks to GitHub native macOS arm64 runners. [PR](https://github.com/conda-forge/panda3d-feedstock/pull/60) in is progress and awaiting some advances in panda3d development or conda-forge infrastructure. 
+This is a mirror of conda-forge recipe but its main goal is to provide macOS arm64 linux aarch64 packages that are not available yet in conda-forge, as the `panda3d` build chain `makepanda` is not easily cross-compilable for conda builds. Osx-arm64 are made available here thanks to GitHub native macOS arm64 runners (and the same apply for linux aarch64). [PR](https://github.com/conda-forge/panda3d-feedstock/pull/60) in is progress and awaiting some advances in panda3d development or conda-forge infrastructure. 
 
-Packages are uploaded on the [Anaconda channel `panda3d-forge`](https://anaconda.org/panda3d-forge/repo).
+Packages are uploaded on the [Prefix.dev channel `panda3d-forge`](https://prefix.dev/channels/panda3d-forge).
+
+**Note**: We have moved from Anaconda servers to Prefix.dev for hosting packages. Please do not use Anaconda servers old channel `panda3d-forge` anymore, but `https://prefix.dev/panda3d-forge` instead. See below for install instructions.
 
 ## Build status for latest release
 
@@ -14,5 +16,5 @@ Packages are uploaded on the [Anaconda channel `panda3d-forge`](https://anaconda
 ## Install
 
 ```
-conda install panda3d --channel panda3d-forge
+conda install panda3d --channel https://prefix.dev/panda3d-forge
 ```
