@@ -10,8 +10,8 @@ Packages are uploaded on the [Prefix.dev channel `panda3d-forge`](https://prefix
 
 ## Build status for latest release
 
-![Conda Version](https://img.shields.io/conda/vn/panda3d-forge/panda3d?label=panda3d%20release&color=4dc71f)
-![Dynamic YAML Badge](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Folivier-roussel%2Fpanda3d-forge%2Frefs%2Fheads%2Fmaster%2F.github%2Fworkflows%2Fbuild-publish-panda3d.yml&query=%24.jobs.build-publish-panda3d.strategy.matrix.python&label=Python%20versions) ![Conda Platform](https://img.shields.io/conda/pn/panda3d-forge/panda3d?label=Supported%20platforms)
+![Conda Version](https://img.shields.io/badge/panda3d%20release%20-%20v1.10.15-green)
+![Python versions](https://img.shields.io/badge/Python%20versions%20-%203.10%2C3.11%2C3.12%2C3.13%2C3.14-blue) ![Conda Platforms](https://img.shields.io/badge/Supported%20platforms-linux--64%20%7C%20linux--aarch64%20%7C%20osx--64%20%7C%20osx--arm64%20%7C%20win--64-lightgrey)
  
 ## Install
 
