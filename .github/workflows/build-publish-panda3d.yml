@@ -6,6 +6,7 @@ on:
     types:
     - opened
     - reopened
+    - closed
     paths:
       - '**/panda3d/.ci_support/*.yaml'
 
@@ -104,6 +105,8 @@ jobs:
 
     # Remove already existing package if any
     - name: Remove existing package
+      # only if event is closing PR with merging OR manually triggered by workflow_dispatch
+      if: ${{ (github.event.action == 'closed' && github.event_name == 'pull_request' && github.event.pull_request.merged == true) || github.event_name == 'pull_request' }}
       shell: bash -l {0}
       run: |
         cd ${{ env.PKG_DIR }}/${{ matrix.target.platform }}
@@ -113,6 +116,8 @@ jobs:
         done
 
     - name: Publish conda package
+      # only if event is closing PR with merging OR manually triggered by workflow_dispatch
+      if: ${{ (github.event.action == 'closed' && github.event_name == 'pull_request' && github.event.pull_request.merged == true) || github.event_name == 'pull_request' }}
       shell: bash -l {0}
       run: |
         for file in ${{ env.PKG_DIR }}/**/panda3d*.conda; do
